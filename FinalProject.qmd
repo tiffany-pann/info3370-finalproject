@@ -17,5 +17,36 @@ data = read_dta("data/highered_00001.dta")
 ```{r}
 filtered <- data|> drop_na(wtsurvy)
 
-filtered_sat <- data |> drop_na(jobsatis)
+filtered_sat <- filtered |> drop_na(jobsatis) |>
+  filter(
+    jobsatis <= 4
+  )
+
+
+filtered_sat |>
+  filter(
+    salary != 9999998 & salary != 9999999
+  ) |>
+  group_by(salary, jobsatis) |>
+  summarise(weight_sum = sum(wtsurvy)) |>
+  mutate(proportion = weight_sum / sum(weight_sum)) |>
+  mutate(
+    jobsatis = case_when(
+      jobsatis == 1 ~ "Very Satisfied",
+      jobsatis == 2 ~ "Somewhat Satisfied",
+      jobsatis == 3 ~ "Somewhat Dissatisfied",
+      jobsatis == 4 ~ "Very Dissatisfied"
+    )
+  ) |>
+  mutate(proportion = weight_sum / sum(weight_sum)) |>
+  ggplot(mapping = aes(x = salary, y = proportion, fill = jobsatis)) +
+  geom_bar(stat = "identity") +
+  facet_wrap("jobsatis") +
+  labs(
+    title = "Annual Salary Proportions Across Satisfaction Levels",
+    x = "Annual Salary",
+    y = "Frequency",
+    fill = "Job Satisfaction"
+  )
+
 ```
