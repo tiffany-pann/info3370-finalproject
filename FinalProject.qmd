@@ -3,3 +3,19 @@ title: "INFO3370-Final-Project"
 format: pdf
 editor: visual
 ---
+
+```{r}
+library(tidyverse)
+library(scales)
+library(haven)
+```
+
+```{r}
+data = read_dta("data/highered_00001.dta")
+```
+
+```{r}
+filtered <- data|> drop_na(wtsurvy)
+
+filtered_sat <- data |> drop_na(jobsatis)
+```
