@@ -50,3 +50,72 @@ filtered_sat |>
   )
 
 ```
+
+Major Specific Data:
+
+```{r}
+data_major <- data |>
+  drop_na(wtsurvy)|> 
+  drop_na(jobsatis)|> 
+  drop_na(ndgmemg)|>
+  filter(ndgmemg != 99)|>
+  mutate(
+    ndgmemg = case_when(
+      ndgmemg == 1 ~ "Computer/Mathematical Sciences",
+      ndgmemg == 2 ~ "Biological/Agricultural/Environment Sciences",
+      ndgmemg == 3 ~ "Physical and Related Sciences",
+      ndgmemg == 4 ~ "Social and Related Sciences",
+      ndgmemg == 5 ~ "Engineering", 
+      ndgmemg == 6 ~ "Science/Engineering Related Fields", 
+      ndgmemg == 7 ~ "Non-science and Engineering Fields", 
+    )
+  )|>
+  filter(
+    salary != 9999998 & salary != 9999999
+  ) |>
+  mutate(
+    jobsatis = case_when(
+      jobsatis == 1 ~ "Very Satisfied",
+      jobsatis == 2 ~ "Somewhat Satisfied",
+      jobsatis == 3 ~ "Somewhat Dissatisfied",
+      jobsatis == 4 ~ "Very Dissatisfied"
+    )
+  ) 
+ 
+ 
+```
+
+We notice that our data set does not included specific data about non-stem fields. Is it strange since this data set is not specific to only STEM Related Higher Education. Moreover, there is a great number of people in the United States who pursue higher education in non-STEM related fields. Hence, we acknowledge that this data set has some bias.
+
+We now explore job satisfaction markers and overall job satisfaction in these specified majors.
+
+```{r}
+data_major_job <- data_major |> 
+  drop_na(wtsurvy)|> 
+  select(wtsurvy,jobsatis, ndgmemg)|> 
+  group_by(jobsatis, ndgmemg)|> 
+  summarise(weight_sum = sum(wtsurvy)) |>
+  mutate(proportion = weight_sum / sum(weight_sum))
+  
+```
+
+```{r}
+#| fig-width: 8.5
+#| fig-height: 7
+ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = jobsatis)) + 
+  geom_bar(stat = "identity")+ 
+  facet_wrap("ndgmemg")+ 
+  theme(panel.spacing = unit(1, "lines"))+ 
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank()) +
+  theme(legend.position = "bottom") + 
+  labs(
+    y = "Proportion of Major", 
+    title = "Job Satisfaction by Major Field", 
+    subtitle = "Based on Results of Doctorate Recipients", 
+    caption = "Data Sourced from IPUMS Higher Education", 
+    fill = "Job Satisfaction Level"
+  )
+
+```
