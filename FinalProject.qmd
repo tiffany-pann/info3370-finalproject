@@ -93,10 +93,11 @@ We now explore job satisfaction markers and overall job satisfaction in these sp
 data_major_job <- data_major |> 
   drop_na(wtsurvy)|> 
   select(wtsurvy,jobsatis, ndgmemg)|> 
-  group_by(jobsatis, ndgmemg)|> 
+  group_by(ndgmemg, jobsatis)|> 
   summarise(weight_sum = sum(wtsurvy)) |>
-  mutate(proportion = weight_sum / sum(weight_sum))
+  mutate(proportion = weight_sum / sum(weight_sum)) 
   
+
 ```
 
 ```{r}
@@ -116,6 +117,9 @@ ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = 
     subtitle = "Based on Results of Doctorate Recipients", 
     caption = "Data Sourced from IPUMS Higher Education", 
     fill = "Job Satisfaction Level"
-  )
+  )+ 
+  scale_fill_viridis_d(direction = -1)+
+  scale_y_continuous(labels = label_percent())
+  
 
 ```
