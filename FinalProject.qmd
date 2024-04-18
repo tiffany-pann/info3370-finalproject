@@ -47,7 +47,9 @@ filtered_sat |>
     x = "Annual Salary",
     y = "Frequency",
     fill = "Job Satisfaction"
-  )
+  )+
+  scale_fill_viridis_d(direction = -1)
+  
 
 ```
 
