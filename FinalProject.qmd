@@ -10,23 +10,29 @@ library(scales)
 library(haven)
 ```
 
-# JOB SATISFACTION AND HIGHER EDUCATION: 
+# JOB SATISFACTION AND HIGHER EDUCATION:
 
-### **Tired Folks:** 
+### **Tired Folks:**
 
 Aditya Kakade, Richie Sun, Gabby Fite, Tiffany Pan, Jacqueline Hui, Brittanie Chen
 
-#### Why are we interested in this topic and why is it important? 
+#### Why are we interested in this topic and why is it important?
 
 As undergraduate students, we are interested in the impact of higher education and overall job satisfaction after graduation. Our project hopes to provide insight into how different graduate degrees impact one's life graduation. This can help prospective high school and undergrad students shape their education path since they can examine the results and see what degrees are expected to yield the highest reward for them after graduation.
 
-#### **Unit of Analysis:**  
+#### **Unit of Analysis:**
 
 Our unit of analysis is a individual. We are using the IPUMs Higher Education dataset, which contains survey information gathered from survey participants who have at least a bachelors degree.
 
-#### **Target Population:** 
+#### **Target Population:**
 
 Our target population are individuals who have graduated with at least a bachelor's degree and have entered the work force. Ideally, our population has an equal proportion of bachelor, master, and doctorate recipients across various different majors.
+
+#### Data Source:
+
+We sourced our data from the IPUMs higher education database. (NEED TO ADD TO THIS SECTION)
+
+### Job Satisfaction and Salary: 
 
 ```{r}
 data = read_dta("data/highered_00001.dta")
@@ -70,6 +76,8 @@ filtered_sat |>
   
 
 ```
+
+### Job Satisfaction Across Different Majors:
 
 Major Specific Data:
 
