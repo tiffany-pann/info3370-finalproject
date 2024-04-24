@@ -40,7 +40,7 @@ Our overall outcome variable is job satisfaction as a way to gain an understandi
 
 #### **Summary Statistic:**
 
-dasd
+The summary statistic is the proportion of respondents in each salary range that fall into each job satisfaction category, adjusted by their survey weight (`wtsurvy`). This weighted proportion accounts for the sample design and aims to make the results more representative of the population from which the sample was drawn.
 
 #### Data Source:
 
