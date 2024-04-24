@@ -201,3 +201,42 @@ ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = 
 [Social and Related Sciences:]{.underline} In this category, the somewhat satisfied group is the largest, followed by very satisfied, with smaller but noticeable percentages of both somewhat dissatisfied and very dissatisfied respondents.
 
 **Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results a bit.
+
+```{r}
+raceth_job_sat <- filtered_sat |>
+  group_by(raceth, ndgmemg) |>
+  summarise(mean_jobsatis = weighted.mean(jobsatis, wtsurvy))|>
+  mutate(
+    raceth = case_when(
+      raceth == 1 ~ "White",
+      raceth == 2 ~ "Asian",
+      raceth == 3 ~ "Underrepresented Minority",
+      raceth == 4 ~ "Other"
+    ),
+    ndgmemg = case_when(
+      ndgmemg == 1 ~ "Computer/Mathematical Sciences",
+      ndgmemg == 2 ~ "Biological/Agricultural/Environment Sciences",
+      ndgmemg == 3 ~ "Physical and Related Sciences",
+      ndgmemg == 4 ~ "Social and Related Sciences",
+      ndgmemg == 5 ~ "Engineering", 
+      ndgmemg == 6 ~ "Science/Engineering Related Fields", 
+      ndgmemg == 7 ~ "Non-science and Engineering Fields", 
+    ))
+```
+
+```{r}
+ggplot(data = raceth_job_sat, mapping = aes(x = ndgmemg,
+  y = mean_jobsatis, fill = ndgmemg)) +
+  facet_wrap("raceth") +
+  geom_bar(stat = "identity") +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        strip.text = element_text(size = 7),
+        legend.key.size = unit(0.5, 'cm'),
+        legend.text = element_text(size = 6)) +
+  ylab("Average Job Satisfaction (1-4)") +
+  ggtitle(("Avg. Job Satisfaction per Major Field by Ethnicity")) +
+  guides(fill=guide_legend(title="Major Field")) +
+  scale_fill_viridis_d(direction = -1)
+```
