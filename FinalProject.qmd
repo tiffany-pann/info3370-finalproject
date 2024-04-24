@@ -12,7 +12,7 @@ library(haven)
 
 # JOB SATISFACTION AND HIGHER EDUCATION:
 
-### **Team Name:** Tired Folks
+### the Tired Folks
 
 Aditya Kakade, Richie Sun, Gabby Fite, Tiffany Pan, Jacqueline Hui, Brittanie Chen
 
@@ -22,7 +22,7 @@ As undergraduate students, we are interested in the impact of higher education a
 
 #### **Unit of Analysis:**
 
-Our unit of analysis is an individual. We are using the IPUMs Higher Education dataset, which contains survey information gathered from survey participants who have at least a bachelors degree.
+Our unit of analysis is an individual. We are using the IPUMS Higher Education data set, which contains survey information gathered from survey participants who have at least a bachelors degree.
 
 #### **Target Population:**
 
@@ -32,11 +32,11 @@ The choice of target population is motivated by the fact that it represents the 
 
 #### **Predictors:**
 
-dddhdhdh
+Our two predictors are salaries (in USD) and major fields (for doctorate recipients).
 
 #### **Outcome Variable:**
 
-asd
+Our overall outcome variable is job satisfaction as a way to gain an understanding of individuals' overall contentment and fulfillment with their employment.
 
 #### **Summary Statistic:**
 
@@ -44,17 +44,21 @@ dasd
 
 #### Data Source:
 
-We sourced our data from the IPUMs Higher Education database, specifically from National Surveys of College Graduates, Recent College Graduates and Doctorate Recipients.
-
-### [Graph 1: Job Satisfaction and Salary:]{.underline}
+We sourced our data from the IPUMS Higher Education database, specifically from National Surveys of College Graduates, Recent College Graduates and Doctorate Recipients.
 
 ```{r}
 data = read_dta("data/highered_00001.dta")
 ```
 
+## [Graph 1: Job Satisfaction and Salary:]{.underline}
+
 #### Filtering for Sample Restrictions
 
-Prior to any sort of graphing, as we were looking through the data-set, we noticed quite a few values that looked out of place. We first filtered out
+Prior to any sort of graphing, as we were looking through the data-set, we noticed quite a few values that looked out of place. We first needed to drop those cases, since they were essentially unusable data points.
+
+We first drop all cases of NA in our `wtsurvy` variable, which brings our data variable from 1,140,565 cases down to 190,611 cases.
+
+Then, we also filtered out the cases where `jobsatis <= 4` , since IPUMS tells us that a code of 98 refers to a logical skip. For the same reason, cases with `salary` values of 9,999,998 and 9,999.999 were also dropped. This brings us down to 139,656 cases of usable data, meaning we dropped 1,000,909 cases. Using these values would make them skew our statistics, as they are intentionally huge to represent skips.
 
 ```{r}
 filtered <- data |> drop_na(wtsurvy)
@@ -89,6 +93,7 @@ filtered_sat |>
     title = "Annual Salary Proportions Across Satisfaction Levels",
     x = "Annual Salary",
     y = "Frequency",
+    caption = "Data Sourced from IPUMS Higher Education", 
     fill = "Job Satisfaction"
   )+
   scale_fill_viridis_d(direction = -1)
@@ -98,17 +103,25 @@ filtered_sat |>
 
 #### **Interpretation of Results:**
 
-dsdsdsd
+Individuals who rated themselves as very dissatisfied with their jobs often reported salaries exceeding \$125,000. Similarly, among those who expressed high levels of job satisfaction, a majority earned salaries surpassing \$100,000. Interestingly, both the very satisfied and very dissatisfied groups exhibited a similar pattern of higher frequency at higher salary levels. Conversely, individuals who described themselves as somewhat satisfied or somewhat dissatisfied tended to report more frequently at lower salary ranges.
 
-### [Graph 2: Job Satisfaction Across Different Majors]{.underline}
+## [Graph 2: Job Satisfaction Across Different Majors]{.underline}
 
-Major Specific Data:
+#### Filtering for Sample Restrictions
+
+For this graph, we also needed to drop cases that were NA in our original data set. We dropped the NA cases in `wtsurvy`, `jobsatis`, and also `ndgmemg` this time, since we are observing majors now. In addition, we also filter out cases where the `ndgmemg` variable was 99, since it also refers to a logical skip for the survey and the `ndgmemg` is crucial because it determines a participant's major.
+
+This brings our data from 1,140,565 to 139,656 cases again, meaning we dropped 1,000,909 cases.
 
 ```{r}
 data_major <- data |>
   drop_na(wtsurvy)|> 
   drop_na(jobsatis)|> 
-  drop_na(ndgmemg)|>
+  drop_na(ndgmemg)
+```
+
+```{r}
+data_major <- data_major |>
   filter(ndgmemg != 99)|>
   mutate(
     ndgmemg = case_when(
@@ -132,7 +145,6 @@ data_major <- data |>
       jobsatis == 4 ~ "Very Dissatisfied"
     )
   ) 
- 
 
 ```
 
@@ -142,7 +154,6 @@ We now explore job satisfaction markers and overall job satisfaction in these sp
 
 ```{r}
 data_major_job <- data_major |> 
-  drop_na(wtsurvy)|> 
   select(wtsurvy,jobsatis, ndgmemg)|> 
   group_by(ndgmemg, jobsatis)|> 
   summarise(weight_sum = sum(wtsurvy)) |>
@@ -175,4 +186,18 @@ ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = 
 
 #### **Interpretation of Results:**
 
-dsdsdsd
+[Biological/Agricultural/Environmental Sciences:]{.underline} A majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
+
+[Computer/Mathematical Sciences:]{.underline} Again, somewhat satisfied is the most common response, with very satisfied as the second most. Very dissatisfied individuals are nearly absent, and somewhat dissatisfied respondents are few.
+
+[Engineering:]{.underline} This field has the highest proportion of very satisfied respondents among the displayed fields. Somewhat satisfied is next, and there are very few somewhat dissatisfied and very few very dissatisfied individuals.
+
+[Non-science and Engineering Fields:]{.underline} A high proportion of respondents are very satisfied, with somewhat satisfied coming in second. The somewhat dissatisfied and very dissatisfied categories have a small presence.
+
+[Physical and Related Sciences:]{.underline} Most respondents are somewhat satisfied, with very satisfied close behind. The somewhat dissatisfied category is more prominent here compared to the other fields, though the very dissatisfied group remains small.
+
+[Science/Engineering Related Fields:]{.underline} Somewhat satisfied is the most common response, followed by very satisfied. There are visible proportions of both somewhat dissatisfied and very dissatisfied respondents.
+
+[Social and Related Sciences:]{.underline} In this category, the somewhat satisfied group is the largest, followed by very satisfied, with smaller but noticeable percentages of both somewhat dissatisfied and very dissatisfied respondents.
+
+**Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results a bit.
