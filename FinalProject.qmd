@@ -20,25 +20,25 @@ Aditya Kakade, Richie Sun, Gabby Fite, Tiffany Pan, Jacqueline Hui, Brittanie Ch
 
 As undergraduate students, we are interested in the impact of higher education and overall job satisfaction after graduation. Our project hopes to provide insight into how different graduate degrees impact one's life graduation. This can help prospective high school and undergrad students shape their education path since they can examine the results and see what degrees are expected to yield the highest reward for them after graduation.
 
-#### Unit of Analysis:
+#### **Unit of Analysis:**
 
 Our unit of analysis is an individual. We are using the IPUMS Higher Education data set, which contains survey information gathered from survey participants who have at least a bachelors degree.
 
-#### Target Population:
+#### **Target Population:**
 
 Our target population are individuals who have graduated with at least a bachelor's degree and have entered the work force. Ideally, our population has an equal proportion of bachelor, master, and doctorate recipients across various different majors.
 
 The choice of target population is motivated by the fact that it represents the people around us the best, as college students who will be graduating in the near future. This makes the observations from our study very applicable and therefore easily share-able with others around us.
 
-#### Predictors:
+#### **Predictors:**
 
 Our two predictors are salaries (in USD), major fields (for doctorate recipients), and race/ethncity.
 
-#### Outcome Variable:
+#### **Outcome Variable:**
 
 Our overall outcome variable is job satisfaction as a way to gain an understanding of individuals' overall contentment and fulfillment with their employment.
 
-#### Summary Statistic:
+#### **Summary Statistic:**
 
 The summary statistic is the proportion of respondents in each salary range that fall into each job satisfaction category, adjusted by their survey weight (`wtsurvy`). This weighted proportion accounts for the sample design and aims to make the results more representative of the population from which the sample was drawn.
 
@@ -103,7 +103,7 @@ filtered_sat |>
 
 ```
 
-#### Interpretation of Results:
+#### **Interpretation of Results:**
 
 Individuals who rated themselves as very dissatisfied with their jobs often reported salaries exceeding \$125,000. Similarly, among those who expressed high levels of job satisfaction, a majority earned salaries surpassing \$100,000. Interestingly, both the very satisfied and very dissatisfied groups exhibited a similar pattern of higher frequency at higher salary levels. Conversely, individuals who described themselves as somewhat satisfied or somewhat dissatisfied tended to report more frequently at lower salary ranges.
 
@@ -150,17 +150,10 @@ data_major <- data_major |>
 
 ```
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
 We notice that our data set does not included specific data about non-stem fields. It is strange since this data set is not specific to only STEM Related Higher Education. Moreover, there is a great number of people in the United States who pursue higher education in non-STEM related fields. Hence, we acknowledge that this data set has some bias.
 
 
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 We now explore job satisfaction markers and overall job satisfaction in these specified majors.
 
 ```{r}
@@ -195,7 +188,23 @@ ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = 
 
 ```
 
+#### **Interpretation of Results:**
 
+[Biological/Agricultural/Environmental Sciences:]{.underline} A majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
+
+[Computer/Mathematical Sciences:]{.underline} Again, somewhat satisfied is the most common response, with very satisfied as the second most. Very dissatisfied individuals are nearly absent, and somewhat dissatisfied respondents are few.
+
+[Engineering:]{.underline} This field has the highest proportion of very satisfied respondents among the displayed fields. Somewhat satisfied is next, and there are very few somewhat dissatisfied and very few very dissatisfied individuals.
+
+[Non-science and Engineering Fields:]{.underline} A high proportion of respondents are very satisfied, with somewhat satisfied coming in second. The somewhat dissatisfied and very dissatisfied categories have a small presence.
+
+[Physical and Related Sciences:]{.underline} Most respondents are somewhat satisfied, with very satisfied close behind. The somewhat dissatisfied category is more prominent here compared to the other fields, though the very dissatisfied group remains small.
+
+[Science/Engineering Related Fields:]{.underline} Somewhat satisfied is the most common response, followed by very satisfied. There are visible proportions of both somewhat dissatisfied and very dissatisfied respondents.
+
+[Social and Related Sciences:]{.underline} In this category, the somewhat satisfied group is the largest, followed by very satisfied, with smaller but noticeable percentages of both somewhat dissatisfied and very dissatisfied respondents.
+
+**Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results a bit.
 
 ```{r}
 raceth_job_sat <- filtered_sat |>
@@ -237,41 +246,18 @@ ggplot(data = raceth_job_sat, mapping = aes(x = ndgmemg,
 ```
 
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-#### Interpretation of Results:
+#### **Interpretation of Results:**
 
 We observed similar trends in the [Biological/Agricultural/Environmental Sciences ,Computer/Mathematical Sciences, Science/Engineering Related Fields, and Social and Related Sciences:]{.underline}
 
 These majors had a majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
 
-=======
-We observed similar trends in the [Biological/Agricultural/Environmental Sciences ,Computer/Mathematical Sciences, Science/Engineering Related Fields, and Social and Related Sciences:]{.underline}
-
-These majors had a majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
-
->>>>>>> Stashed changes
-=======
-We observed similar trends in the [Biological/Agricultural/Environmental Sciences ,Computer/Mathematical Sciences, Science/Engineering Related Fields, and Social and Related Sciences:]{.underline}
-
-These majors had a majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
-
->>>>>>> Stashed changes
 [Engineering:]{.underline} This field has the highest proportion of very satisfied respondents among the displayed fields. Somewhat satisfied is next. There are very few somewhat dissatisfied and less very dissatisfied individuals.
 
 [Non-science and Engineering Fields:]{.underline} A high proportion of respondents are very satisfied, with somewhat satisfied coming in second. The somewhat dissatisfied and very dissatisfied categories have a small presence.
 
 [Physical and Related Sciences:]{.underline} Most respondents are somewhat satisfied, with very satisfied close behind. The somewhat dissatisfied category is more prominent here compared to the other fields, though the very dissatisfied group remains small.
-g
-Across all fields: 
-"Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies slightly depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results.
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
 **Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies slightly depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results.
->>>>>>> Stashed changes
-=======
-**Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies slightly depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results.
->>>>>>> Stashed changes
+
