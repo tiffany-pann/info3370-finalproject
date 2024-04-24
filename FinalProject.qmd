@@ -18,7 +18,7 @@ Aditya Kakade, Richie Sun, Gabby Fite, Tiffany Pan, Jacqueline Hui, Brittanie Ch
 
 #### Why are we interested in this topic and why is it important?
 
-As undergraduate students, we are interested in the impact of higher education and overall job satisfaction after graduation. Our project hopes to provide insight into how different graduate degrees impact one's life graduation. This can help prospective high school and undergrad students shape their education path since they can examine the results and see what degrees are expected to yield the highest reward for them after graduation.
+As undergraduate students, we are interested in the impact of higher education on overall job satisfaction after graduation. Our project hopes to provide insight into how different graduate degrees impact one's life graduation. This can help prospective high school and undergrad students shape their education path since they can examine the results and see what degrees are expected to yield the highest reward for them after graduation.
 
 #### **Unit of Analysis:**
 
@@ -54,7 +54,7 @@ data = read_dta("data/highered_00001.dta")
 
 #### Filtering for Sample Restrictions
 
-Prior to any sort of graphing, as we were looking through the data-set, we noticed quite a few values that looked out of place. We first needed to drop those cases, since they were essentially unusable data points.
+During our exploratory analysis, we noticed quite a few values that looked out of place. We first needed to drop those cases, since they were unusable data points.
 
 We first drop all cases of NA in our `wtsurvy` variable, which brings our data variable from 1,140,565 cases down to 190,611 cases.
 
@@ -229,15 +229,14 @@ We observed similar trends in the [Biological/Agricultural/Environmental Science
 
 These majors had a majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
 
-[Engineering:]{.underline} This field has the highest proportion of very satisfied respondents among the displayed fields. Somewhat satisfied is next. There are very few somewhat dissatisfied and less very dissatisfied individuals.
+[Engineering:]{.underline} Highest proportion of very satisfied respondents among the displayed fields: Very Satisfied \> Somewhat satisfied \> Somewhat dissatisfied and Very dissatisfied
 
-[Non-science and Engineering Fields:]{.underline} A high proportion of respondents are very satisfied, with somewhat satisfied coming in second. The somewhat dissatisfied and very dissatisfied categories have a small presence.
+[Non-science and Engineering Fields:]{.underline} Very satsified \> Somewhat satisfied \> Somewhat dissatisfied and Vert Dissatisfied.
 
-[Physical and Related Sciences:]{.underline} Most respondents are somewhat satisfied, with very satisfied close behind. The somewhat dissatisfied category is more prominent here compared to the other fields, though the very dissatisfied group remains small.
+[Physical and Related Sciences:]{.underline} The somewhat dissatisfied category is more prominent here compared to the other fields: Somewhat satisfied \> Very satisfied \> Somewhat dissatisfied and Very Dissatisfied
 
-**Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies slightly depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results.
+**Across all fields,** "Somewhat Satisfied" is the most common response, followed by "Very Satisfied". The "Very Dissatisfied" response is consistently less frequent across all fields. The visual suggests that job satisfaction levels are high among doctorate recipients, but varies depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results.
 
 **Findings on Ethnicity and Race**
 
-Underrepresented Minorities and White respondents have the highest job satisfaction in Non-Science Fields, while Asian respondents have the highest job satisfaction in Bio/Agricultural/Environmental sciences.  The category that sees the highest difference in satisfaction across ethnicities is Non-Science, with an approximate difference of 0.45.  The category that sees the lowest difference in satisfaction is CS/Math, with an approximate difference of 0.05.  Major Fields with the lowest satisfaction also differ across ethnicities, with the lowest satisfaction among Asian, White, and Underrepresented Minority respondents being in the Non-Science, Physical Science, and Social Science fields respectively.\
-     This visualization allows us to see that a difference in job satisfaction across Major Fields is present when we consider ethnicities as a subgroup.  We cannot say for sure that this is the sole factor, as multiple aspects of an individual such as financial background and gender might influence satisfaction in a field.  Additionally, because the data groups all ethnicities except for White and Asian into the 'Minorities' category, all differences across ethnic groups are not visible.
+Underrepresented Minorities and White respondents have the highest job satisfaction in Non-Science Fields, while Asian respondents have the highest job satisfaction in Bio/Agricultural/Environmental sciences. The category with the highest difference in satisfaction across ethnicities is Non-Science, with an approximate difference of 0.45. The category that sees the lowest difference in satisfaction is CS/Math, with an approximate difference of 0.05. Major Fields with the lowest satisfaction also differ across ethnicities, with the lowest satisfaction among Asian, White, and Underrepresented Minority respondents being in the Non-Science, Physical Science, and Social Science fields respectively. This visualization allows us to see that a difference in job satisfaction across Major Fields is present when we consider ethnicities as a subgroup. We cannot say for sure that this is the sole factor, as multiple aspects of an individual such as financial background and gender might influence satisfaction in a field. Additionally, because the data groups all ethnicities except for White and Asian into the 'Minorities' category, all differences across ethnic groups are not visible.
