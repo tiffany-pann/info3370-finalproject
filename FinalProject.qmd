@@ -12,7 +12,7 @@ library(haven)
 
 # JOB SATISFACTION AND HIGHER EDUCATION:
 
-### **Tired Folks:**
+### **Team Name:** Tired Folks
 
 Aditya Kakade, Richie Sun, Gabby Fite, Tiffany Pan, Jacqueline Hui, Brittanie Chen
 
@@ -22,35 +22,54 @@ As undergraduate students, we are interested in the impact of higher education a
 
 #### **Unit of Analysis:**
 
-Our unit of analysis is a individual. We are using the IPUMs Higher Education dataset, which contains survey information gathered from survey participants who have at least a bachelors degree.
+Our unit of analysis is an individual. We are using the IPUMs Higher Education dataset, which contains survey information gathered from survey participants who have at least a bachelors degree.
 
 #### **Target Population:**
 
 Our target population are individuals who have graduated with at least a bachelor's degree and have entered the work force. Ideally, our population has an equal proportion of bachelor, master, and doctorate recipients across various different majors.
 
+The choice of target population is motivated by the fact that it represents the people around us the best, as college students who will be graduating in the near future. This makes the observations from our study very applicable and therefore easily share-able with others around us.
+
+#### **Predictors:**
+
+dddhdhdh
+
+#### **Outcome Variable:**
+
+asd
+
+#### **Summary Statistic:**
+
+dasd
+
 #### Data Source:
 
-We sourced our data from the IPUMs higher education database. (NEED TO ADD TO THIS SECTION)
+We sourced our data from the IPUMs Higher Education database, specifically from National Surveys of College Graduates, Recent College Graduates and Doctorate Recipients.
 
-### Job Satisfaction and Salary: 
+### [Graph 1: Job Satisfaction and Salary:]{.underline}
 
 ```{r}
 data = read_dta("data/highered_00001.dta")
 ```
 
+#### Filtering for Sample Restrictions
+
+Prior to any sort of graphing, as we were looking through the data-set, we noticed quite a few values that looked out of place. We first filtered out
+
 ```{r}
-filtered <- data|> drop_na(wtsurvy)
+filtered <- data |> drop_na(wtsurvy)
 
 filtered_sat <- filtered |> drop_na(jobsatis) |>
   filter(
     jobsatis <= 4
-  )
-
-
-filtered_sat |>
+  ) |>
   filter(
     salary != 9999998 & salary != 9999999
-  ) |>
+  )
+```
+
+```{r}
+filtered_sat |>
   group_by(salary, jobsatis) |>
   summarise(weight_sum = sum(wtsurvy)) |>
   mutate(proportion = weight_sum / sum(weight_sum)) |>
@@ -77,7 +96,11 @@ filtered_sat |>
 
 ```
 
-### Job Satisfaction Across Different Majors:
+#### **Interpretation of Results:**
+
+dsdsdsd
+
+### [Graph 2: Job Satisfaction Across Different Majors]{.underline}
 
 Major Specific Data:
 
@@ -110,10 +133,10 @@ data_major <- data |>
     )
   ) 
  
- 
+
 ```
 
-We notice that our data set does not included specific data about non-stem fields. Is it strange since this data set is not specific to only STEM Related Higher Education. Moreover, there is a great number of people in the United States who pursue higher education in non-STEM related fields. Hence, we acknowledge that this data set has some bias.
+We notice that our data set does not included specific data about non-stem fields. It is strange since this data set is not specific to only STEM Related Higher Education. Moreover, there is a great number of people in the United States who pursue higher education in non-STEM related fields. Hence, we acknowledge that this data set has some bias.
 
 We now explore job satisfaction markers and overall job satisfaction in these specified majors.
 
@@ -124,8 +147,6 @@ data_major_job <- data_major |>
   group_by(ndgmemg, jobsatis)|> 
   summarise(weight_sum = sum(wtsurvy)) |>
   mutate(proportion = weight_sum / sum(weight_sum)) 
-  
-
 ```
 
 ```{r}
@@ -151,3 +172,7 @@ ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = 
   
 
 ```
+
+#### **Interpretation of Results:**
+
+dsdsdsd
