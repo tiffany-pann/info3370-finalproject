@@ -109,9 +109,9 @@ Individuals who rated themselves as very dissatisfied with their jobs often repo
 
 #### Filtering for Sample Restrictions
 
-For this graph, we also needed to drop cases that were NA in our original data set. We dropped the NA cases in `wtsurvy`, `jobsatis`, and also `ndgmemg` this time, since we are observing majors now. In addition, we also filter out cases where the `ndgmemg` variable was 99, since it also refers to a logical skip for the survey and the `ndgmemg` is crucial because it determines a participant's major.
+For this graph, we also needed to drop cases that were NA in our original data set. We dropped the NA cases in `wtsurvy`, `jobsatis`, and `ndgmemg`, since we are observing majors now. In addition, we also filter out cases where the `ndgmemg` variable was 99, since this indicates that the respondent skipped the question.
 
-This brings our data from 1,140,565 to 139,656 cases again, meaning we dropped 1,000,909 cases.
+This brings our data from 1,140,565 to 139,656 cases.
 
 ```{r}
 data_major <- data |>
@@ -148,7 +148,7 @@ data_major <- data_major |>
 
 ```
 
-We notice that our data set does not included specific data about non-stem fields. It is strange since this data set is not specific to only STEM Related Higher Education. Moreover, there is a great number of people in the United States who pursue higher education in non-STEM related fields. Hence, we acknowledge that this data set has some bias.
+We notice that our data set does not included specific data about non-stem fields. Hence, we acknowledge that this data set has some bias.
 
 We now explore job satisfaction markers and overall job satisfaction in these specified majors.
 
@@ -184,23 +184,9 @@ ggplot(data = data_major_job, mapping = aes(x = jobsatis,y = proportion, fill = 
 
 ```
 
-#### **Interpretation of Results:**
+#### Further Exploration: Race and Ethnicity: 
 
-[Biological/Agricultural/Environmental Sciences:]{.underline} A majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
-
-[Computer/Mathematical Sciences:]{.underline} Again, somewhat satisfied is the most common response, with very satisfied as the second most. Very dissatisfied individuals are nearly absent, and somewhat dissatisfied respondents are few.
-
-[Engineering:]{.underline} This field has the highest proportion of very satisfied respondents among the displayed fields. Somewhat satisfied is next, and there are very few somewhat dissatisfied and very few very dissatisfied individuals.
-
-[Non-science and Engineering Fields:]{.underline} A high proportion of respondents are very satisfied, with somewhat satisfied coming in second. The somewhat dissatisfied and very dissatisfied categories have a small presence.
-
-[Physical and Related Sciences:]{.underline} Most respondents are somewhat satisfied, with very satisfied close behind. The somewhat dissatisfied category is more prominent here compared to the other fields, though the very dissatisfied group remains small.
-
-[Science/Engineering Related Fields:]{.underline} Somewhat satisfied is the most common response, followed by very satisfied. There are visible proportions of both somewhat dissatisfied and very dissatisfied respondents.
-
-[Social and Related Sciences:]{.underline} In this category, the somewhat satisfied group is the largest, followed by very satisfied, with smaller but noticeable percentages of both somewhat dissatisfied and very dissatisfied respondents.
-
-**Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results a bit.
+We wanted to dive deeper into this topic, and hence introduce a new variable **raceth,** which indicates the individual's race/ethnicity:
 
 ```{r}
 raceth_job_sat <- filtered_sat |>
@@ -240,3 +226,21 @@ ggplot(data = raceth_job_sat, mapping = aes(x = ndgmemg,
   guides(fill=guide_legend(title="Major Field")) +
   scale_fill_viridis_d(direction = -1)
 ```
+
+#### **Interpretation of Results:**
+
+[Biological/Agricultural/Environmental Sciences:]{.underline} A majority of respondents are somewhat satisfied with their jobs, followed by those who are very satisfied. Very few are somewhat dissatisfied, and a negligible proportion is very dissatisfied.
+
+[Computer/Mathematical Sciences:]{.underline} Again, somewhat satisfied is the most common response, with very satisfied as the second most. Very dissatisfied individuals are nearly absent, and somewhat dissatisfied respondents are few.
+
+[Engineering:]{.underline} This field has the highest proportion of very satisfied respondents among the displayed fields. Somewhat satisfied is next, and there are very few somewhat dissatisfied and very few very dissatisfied individuals.
+
+[Non-science and Engineering Fields:]{.underline} A high proportion of respondents are very satisfied, with somewhat satisfied coming in second. The somewhat dissatisfied and very dissatisfied categories have a small presence.
+
+[Physical and Related Sciences:]{.underline} Most respondents are somewhat satisfied, with very satisfied close behind. The somewhat dissatisfied category is more prominent here compared to the other fields, though the very dissatisfied group remains small.
+
+[Science/Engineering Related Fields:]{.underline} Somewhat satisfied is the most common response, followed by very satisfied. There are visible proportions of both somewhat dissatisfied and very dissatisfied respondents.
+
+[Social and Related Sciences:]{.underline} In this category, the somewhat satisfied group is the largest, followed by very satisfied, with smaller but noticeable percentages of both somewhat dissatisfied and very dissatisfied respondents.
+
+**Across all fields,** "Somewhat Satisfied" tends to be the most common response, with "Very Satisfied" being the second most common. The "Very Dissatisfied" response is consistently the least common across all fields. The visual suggests that job satisfaction levels are relatively high among doctorate recipients, but varies depending on the field of study. It's important to note that satisfaction is subjective and may be influenced by a variety of factors not captured by this data. In addition, it may be subjectively harder for participants to acknowledge that they are dissatisfied with their fields, as it'd undermine their time and effort spent in that field which may also skew the results.
